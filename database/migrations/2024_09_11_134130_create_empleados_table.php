@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
 return new class extends Migration
 {
     /**
@@ -19,11 +17,9 @@ return new class extends Migration
             $table->string('telefono', 45);
             $table->string('correo_electronico', 45);
             $table->timestamp('fecha_contratación');
-
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
