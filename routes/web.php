@@ -1,6 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\DispositivoController;
+use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\FacturaController;
+use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\PagoController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\ReparacionController;
+use App\Http\Controllers\SolicitudController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +25,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
+
+Route::resource('/proveedors', ProveedorController::class);
+Route::resource('/categorias', CategoriaController::class);
+Route::resource('/productos', ProductoController::class);
+Route::resource('/inventarios', InventarioController::class);
+Route::resource('/clientes', ClienteController::class);
+Route::resource('/dispositivos', DispositivoController::class);
+Route::resource('/solicitudes', SolicitudController::class);
+Route::resource('/empleados', EmpleadoController::class);
+Route::resource('/reparaciones', ReparacionController::class);
+Route::resource('/facturas', FacturaController::class);
+Route::resource('/pagos', PagoController::class);
