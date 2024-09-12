@@ -12,7 +12,8 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        //
+        $solicituds = Solicitud::all();
+        return view('solicituds.index', compact('solicituds'));
     }
 
     /**
@@ -20,7 +21,7 @@ class SolicitudController extends Controller
      */
     public function create()
     {
-        //
+        return view('solicitudes.create');
     }
 
     /**
@@ -28,7 +29,21 @@ class SolicitudController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cliente_id' => 'required|exists:clientes,id',
+            'dispositivo_id' => 'required|exists:dispositivos,id',
+            'fecha_solicitud' => 'required|date',
+            'descripcion_problema' => 'required|string|max:255',
+        ]);
+
+        Solicitud::create([
+            'cliente_id' => $request->cliente_id,
+            'dispositivo_id' => $request->dispositivo_id,
+            'fecha_solicitud' => $request->fecha_solicitud,
+            'descripcion_problema' => $request->descripcion_problema,
+        ]);
+
+        return redirect()->route('solicitudes.index')->with('success', 'Solicitud creada con éxito.');
     }
 
     /**
@@ -44,7 +59,7 @@ class SolicitudController extends Controller
      */
     public function edit(Solicitud $solicitud)
     {
-        //
+        return view('solicitudes.edit', compact('solicitud'));
     }
 
     /**
@@ -52,7 +67,21 @@ class SolicitudController extends Controller
      */
     public function update(Request $request, Solicitud $solicitud)
     {
-        //
+        $request->validate([
+            'cliente_id' => 'required|exists:clientes,id',
+            'dispositivo_id' => 'required|exists:dispositivos,id',
+            'fecha_solicitud' => 'required|date',
+            'descripcion_problema' => 'required|string|max:255',
+        ]);
+
+        $solicitud->update([
+            'cliente_id' => $request->cliente_id,
+            'dispositivo_id' => $request->dispositivo_id,
+            'fecha_solicitud' => $request->fecha_solicitud,
+            'descripcion_problema' => $request->descripcion_problema,
+        ]);
+
+        return redirect()->route('solicitudes.index')->with('success', 'Solicitud actualizada con éxito.');
     }
 
     /**
@@ -60,6 +89,7 @@ class SolicitudController extends Controller
      */
     public function destroy(Solicitud $solicitud)
     {
-        //
+        $solicitud->delete();
+        return redirect()->route('solicitudes.index')->with('success', 'Solicitud eliminada con éxito.');
     }
 }

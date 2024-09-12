@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,10 @@ class DispositivoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'Marca' => $this->faker->randomElement(['Samsung', 'Apple', 'Huawei', 'Xiaomi']),
+            'Modelo' => $this->faker->bothify('Model ##??'),
+            'IMEI' => $this->faker->unique()->numerify('###############'),
+            'cliente_id' => Cliente::factory(), // Se relaciona con el factory de Cliente
         ];
     }
 }

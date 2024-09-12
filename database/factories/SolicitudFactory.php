@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Cliente;
+use App\Models\Dispositivo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class SolicitudFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'cliente_id' => Cliente::factory(), // Relaciona la solicitud con un cliente
+            'dispositivo_id' => Dispositivo::factory(), // Relaciona la solicitud con un dispositivo
+            'fecha_solicitud' => $this->faker->dateTimeBetween('-1 months', 'now'),
+            'descripción_problema' => $this->faker->sentence(),
         ];
     }
 }
