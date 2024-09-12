@@ -11,7 +11,7 @@ class ClienteTest extends TestCase
     {
         $cliente = Cliente::create([
             'nombre' => 'Ana',
-            'apellidos'=> 'Martinez',
+            'apellidos' => 'Martinez',
             'telefono' => '987654321',
             'correo_electronico' => 'ana.martinez@gmail.com',
         ]);

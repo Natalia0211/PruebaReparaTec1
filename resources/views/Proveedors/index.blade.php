@@ -5,7 +5,7 @@
 
 @section('contenido')
     {{-- Mostrar mensajes de éxito --}}
-    @if(session('success'))
+    @if (session('success'))
         <div class="alert alert-success mb-4">
             {{ session('success') }}
         </div>
@@ -31,21 +31,23 @@
             </thead>
             <tbody>
                 @foreach ($proveedors as $proveedor)
-                <tr>
-                    <td>{{ $proveedor->id }}</td>
-                    <td>{{ $proveedor->empresa }}</td>
-                    <td>{{ $proveedor->direccion }}</td>
-                    <td>{{ $proveedor->telefono }}</td>
-                    <td>{{ $proveedor->correo_electronico }}</td>
-                    <td class="flex space-x-2">
-                        <a href="{{ route('proveedors.edit', $proveedor->id) }}" class="btn btn-warning btn-xs">Editar</a>
-                        <form action="{{ route('proveedors.destroy', $proveedor->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-error btn-xs" onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ $proveedor->id }}</td>
+                        <td>{{ $proveedor->empresa }}</td>
+                        <td>{{ $proveedor->direccion }}</td>
+                        <td>{{ $proveedor->telefono }}</td>
+                        <td>{{ $proveedor->correo_electronico }}</td>
+                        <td class="flex space-x-2">
+                            <a href="{{ route('proveedors.edit', $proveedor->id) }}" class="btn btn-warning btn-xs">Editar</a>
+                            <form action="{{ route('proveedors.destroy', $proveedor->id) }}" method="POST"
+                                style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-error btn-xs"
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este proveedor?')">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

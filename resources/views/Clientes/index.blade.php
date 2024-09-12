@@ -5,7 +5,7 @@
 
 @section('contenido')
     {{-- Mostrar mensajes de éxito --}}
-    @if(session('success'))
+    @if (session('success'))
         <div class="alert alert-success mb-4">
             {{ session('success') }}
         </div>
@@ -31,21 +31,23 @@
             </thead>
             <tbody>
                 @foreach ($clientes as $cliente)
-                <tr>
-                    <td>{{ $cliente->id }}</td>
-                    <td>{{ $cliente->nombre }}</td>
-                    <td>{{ $cliente->apellidos }}</td>
-                    <td>{{ $cliente->telefono }}</td>
-                    <td>{{ $cliente->correo_electronico }}</td>
-                    <td class="flex space-x-2">
-                        <a href="{{ route('clientes.edit', $cliente->id) }}" class="btn btn-warning btn-xs">Editar</a>
-                        <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-error btn-xs" onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?')">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ $cliente->id }}</td>
+                        <td>{{ $cliente->nombre }}</td>
+                        <td>{{ $cliente->apellidos }}</td>
+                        <td>{{ $cliente->telefono }}</td>
+                        <td>{{ $cliente->correo_electronico }}</td>
+                        <td class="flex space-x-2">
+                            <a href="{{ route('clientes.edit', $cliente->id) }}" class="btn btn-warning btn-xs">Editar</a>
+                            <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST"
+                                style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-error btn-xs"
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este cliente?')">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
