@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -46,7 +47,8 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('productos.edit', compact('productos'));
+        $categorias = Categoria::all();
+        return view('productos.edit', compact('producto', 'categorias'));
     }
 
     /**

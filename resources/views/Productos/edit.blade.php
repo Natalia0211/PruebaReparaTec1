@@ -31,6 +31,19 @@
                     <input type="number" name="precio" value="{{ $producto->precio }}" placeholder="Precio"
                         class="input input-bordered" required />
                 </div>
+                {{-- Categoría --}}
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Categoría</span>
+                    </label>
+                    <select name="categoria_id" class="select select-bordered" required>
+                        @foreach ($categorias as $categoria)
+                            <option value="{{ $categoria->id }}" {{ $categoria->id == $producto->categoria_id ? 'selected' : '' }}>
+                                {{ $categoria->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
                 {{-- Botones --}}
                 <div class="form-control mt-6">
                     <button type="submit" class="btn btn-primary">Actualizar producto</button>
@@ -40,3 +53,4 @@
         </div>
     </div>
 @endsection
+
