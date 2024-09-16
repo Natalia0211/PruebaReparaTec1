@@ -3,6 +3,14 @@
 @section('titulo', 'Página Principal')
 
 @section('contenido')
+
+    {{-- Mostrar mensajes de éxito --}}
+    @if (session('success'))
+        <div class="alert alert-success mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+    
     {{-- Botón para crear un producto nuevo --}}
     <div class="flex justify-end m-4">
         <a href="{{ route('productos.create') }}" class="btn btn-outline">Nuevo producto</a>

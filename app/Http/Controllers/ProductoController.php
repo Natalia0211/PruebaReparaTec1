@@ -22,7 +22,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('productos.create');
+        $categorias = Categoria::all();
+        return view('productos.create', compact('categorias')); 
     }
 
     /**
@@ -31,7 +32,7 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         Producto::create($request->all());
-        return redirect()->route('productos.index');
+        return redirect()->route('productos.index') ->with('success', 'El producto ha sido creado exitosamente.');
     }
 
     /**
