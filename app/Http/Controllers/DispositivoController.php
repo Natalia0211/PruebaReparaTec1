@@ -3,63 +3,68 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dispositivo;
+use App\Models\Cliente; // Asegúrate de tener el modelo Cliente
 use Illuminate\Http\Request;
 
 class DispositivoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Mostrar lista de dispositivos
     public function index()
     {
-        //
+        $dispositivos = Dispositivo::all();
+        return view('dispositivos.index', compact('dispositivos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Mostrar formulario para crear un nuevo dispositivo
     public function create()
     {
-        //
+        $clientes = Cliente::all(); // Obtener todos los clientes
+        return view('dispositivos.create', compact('clientes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Almacenar un nuevo dispositivo
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'marca' => 'required|string|max:255',
+            'modelo' => 'required|string|max:255',
+            'imei' => 'required|string|max:255|unique:dispositivos',
+            'cliente_id' => 'required|exists:clientes,id',
+        ]);
+
+        Dispositivo::create($request->all());
+        return redirect()->route('dispositivos.index')->with('success', 'Dispositivo creado exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Dispositivo $dispositivo)
+    // Mostrar el formulario de edición
+    public function edit($id)
     {
-        //
+        $dispositivo = Dispositivo::findOrFail($id);
+        $clientes = Cliente::all();
+        return view('dispositivos.edit', compact('dispositivo', 'clientes'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Dispositivo $dispositivo)
+    // Actualizar un dispositivo
+    public function update(Request $request, $id)
     {
-        //
+        $dispositivo = Dispositivo::findOrFail($id);
+
+        $request->validate([
+            'marca' => 'required|string|max:255',
+            'modelo' => 'required|string|max:255',
+            'imei' => 'required|string|max:255|unique:dispositivos,imei,' . $dispositivo->id,
+            'cliente_id' => 'required|exists:clientes,id',
+        ]);
+
+        $dispositivo->update($request->all());
+        return redirect()->route('dispositivos.index')->with('success', 'Dispositivo actualizado exitosamente.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Dispositivo $dispositivo)
+    // Eliminar un dispositivo
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Dispositivo $dispositivo)
-    {
-        //
+        $dispositivo = Dispositivo::findOrFail($id);
+        $dispositivo->delete();
+        return redirect()->route('dispositivos.index')->with('success', 'Dispositivo eliminado exitosamente.');
     }
 }
