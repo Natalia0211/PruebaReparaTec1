@@ -17,6 +17,6 @@ class Producto extends Model
 
     public function inventarios()
     {
-        return $this->hasMany(Inventario::class, 'ID_Producto');
+        return $this->hasMany(Inventario::class,);
     }
 }

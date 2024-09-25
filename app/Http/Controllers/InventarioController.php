@@ -12,7 +12,7 @@ class InventarioController extends Controller
     // Método para mostrar la lista de inventarios
     public function index()
     {
-        $inventarios = Inventario::with(['proveedor', 'producto'])->get();
+        $inventarios = Inventario::with(['producto', 'proveedor'])->get();
         return view('inventarios.index', compact('inventarios'));
     }
 
@@ -31,7 +31,7 @@ class InventarioController extends Controller
             'nombre' => 'required|string|max:255',
             'cantidad' => 'required|integer|min:1',
             'precio_unitario' => 'required|numeric|min:0',
-            'proveedor_id' => 'required|exists:proveedores,id',
+            'proveedor_id' => 'required|exists:proveedors,id',
             'producto_id' => 'required|exists:productos,id',
         ]);
 
@@ -54,7 +54,7 @@ class InventarioController extends Controller
             'nombre' => 'required|string|max:255',
             'cantidad' => 'required|integer|min:1',
             'precio_unitario' => 'required|numeric|min:0',
-            'proveedor_id' => 'required|exists:proveedores,id',
+            'proveedor_id' => 'required|exists:proveedors,id',
             'producto_id' => 'required|exists:productos,id',
         ]);
 

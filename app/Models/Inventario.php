@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Inventario extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'cantidad', 'precio_unitario', 'proveedor_id', 'producto_id'];
+    protected $fillable = ['producto_id', 'cantidad', 'precio_unitario', 'proveedor_id',];
 
     public function proveedor()
     {
-        return $this->belongsTo(Proveedor::class, 'ID_Proveedor');
+        return $this->belongsTo(Proveedor::class,);
     }
 
     public function producto()
     {
-        return $this->belongsTo(Producto::class, 'ID_Producto');
+        return $this->belongsTo(Producto::class,);
     }
 }

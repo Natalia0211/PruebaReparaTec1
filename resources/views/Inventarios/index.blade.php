@@ -17,11 +17,10 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
+                    <th>Producto</th>
                     <th>Cantidad</th>
                     <th>Precio Unitario</th>
                     <th>Proveedor</th>
-                    <th>Producto</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -30,11 +29,10 @@
                     @foreach ($inventarios as $inventario)
                         <tr>
                             <td>{{ $inventario->id }}</td>
-                            <td>{{ $inventario->nombre }}</td>
+                            <td>{{ $inventario->producto->nombre ?? 'N/A' }}</td>
                             <td>{{ $inventario->cantidad }}</td>
                             <td>{{ $inventario->precio_unitario }}</td>
-                            <td>{{ $inventario->proveedor->nombre ?? 'N/A' }}</td>
-                            <td>{{ $inventario->producto->nombre ?? 'N/A' }}</td>
+                            <td>{{ $inventario->proveedor->empresa ?? 'N/A' }}</td>
                             <td class="flex space-x-2">
                                 <a href="{{ route('inventarios.edit', $inventario->id) }}" class="btn btn-warning btn-xs">Editar</a>
                                 <form action="{{ route('inventarios.destroy', $inventario->id) }}" method="POST" style="display:inline;">

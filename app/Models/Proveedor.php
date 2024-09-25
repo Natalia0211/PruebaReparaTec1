@@ -12,6 +12,6 @@ class Proveedor extends Model
 
     public function inventarios()
     {
-        return $this->hasMany(Inventario::class, 'ID_Proveedor');
+        return $this->hasMany(Inventario::class,);
     }
 }

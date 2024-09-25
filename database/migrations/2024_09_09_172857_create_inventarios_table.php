@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('inventarios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre', 45);
+            $table->foreignId('producto_id')->constrained();
             $table->integer('cantidad');
             $table->decimal('precio_unitario', 10, 2);
             $table->foreignId('proveedor_id')->constrained();
-            $table->foreignId('producto_id')->constrained();
             $table->timestamps();
         });
     }
