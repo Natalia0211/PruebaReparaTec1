@@ -21,6 +21,7 @@ class ProductoObserver
             'nombre' => $producto->nombre,
             'cantidad' => 0, 
             'proveedor_id' => 1,
+            'precio_unitario' => $producto->precio,
 
         ]);
     }

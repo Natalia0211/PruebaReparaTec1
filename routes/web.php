@@ -36,9 +36,9 @@ Route::resource('productos', ProductoController::class)->middleware('auth');
 Route::resource('inventarios', InventarioController::class);
 Route::resource('clientes', ClienteController::class);
 Route::resource('dispositivos', DispositivoController::class);
-Route::resource('solicitudes', SolicitudController::class);
+Route::resource('solicituds', SolicitudController::class);
 Route::resource('empleados', EmpleadoController::class);
-Route::resource('reparaciones', ReparacionController::class);
+Route::resource('reparacions', ReparacionController::class);
 Route::resource('facturas', FacturaController::class);
 Route::resource('pagos', PagoController::class);
 

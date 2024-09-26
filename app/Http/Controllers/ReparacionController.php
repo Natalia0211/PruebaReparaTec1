@@ -7,59 +7,59 @@ use Illuminate\Http\Request;
 
 class ReparacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Mostrar la lista de reparaciones
     public function index()
     {
-        //
+        $reparacions = Reparacion::all();
+        return view('reparacions.index', compact('reparacions'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Mostrar el formulario para crear una nueva reparación
     public function create()
     {
-        //
+        return view('reparacions.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Almacenar una nueva reparación
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'solicitud_id' => 'required|integer',
+            'empleado_id' => 'required|integer',
+            'fecha_reparacion' => 'required|date',
+            'costo_reparacion' => 'required|numeric|min:0',
+        ]);
+
+        Reparacion::create($request->all());
+        
+        return redirect()->route('reparacions.index')->with('success', 'Reparación creada exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reparacion $reparacion)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Mostrar el formulario para editar una reparación existente
     public function edit(Reparacion $reparacion)
     {
-        //
+        return view('reparacions.edit', compact('reparacion'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Actualizar una reparación existente
     public function update(Request $request, Reparacion $reparacion)
     {
-        //
+        $request->validate([
+            'solicitud_id' => 'required|integer',
+            'empleado_id' => 'required|integer',
+            'fecha_reparacion' => 'required|date',
+            'costo_reparacion' => 'required|numeric|min:0',
+        ]);
+
+        $reparacion->update($request->all());
+        
+        return redirect()->route('reparacions.index')->with('success', 'Reparación actualizada exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Eliminar una reparación
     public function destroy(Reparacion $reparacion)
     {
-        //
+        $reparacion->delete();
+        return redirect()->route('reparacions.index')->with('success', 'Reparación eliminada exitosamente.');
     }
 }

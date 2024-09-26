@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use App\Models\Categoria;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -23,7 +24,8 @@ class ProductoController extends Controller
     public function create()
     {
         $categorias = Categoria::all();
-        return view('productos.create', compact('categorias')); 
+        $proveedors = Proveedor::all();
+        return view('productos.create', compact('categorias', 'proveedors')); 
     }
 
     /**
@@ -32,7 +34,7 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
         Producto::create($request->all());
-        return redirect()->route('productos.index') ->with('success', 'El producto ha sido creado exitosamente.');
+        return redirect()->route('productos.index') ->with('success', 'El producto ha sido creado y agregado al inventario exitosamente.');
     }
 
     /**

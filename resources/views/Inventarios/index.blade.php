@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('titulo', 'Listar Inventarios')
-@section('cabecera', 'Listar Inventarios')
+@section('titulo', 'Listar Inventario')
+@section('cabecera', 'Listar Inventario')
 
 @section('contenido')
     {{-- Mostrar mensajes de éxito --}}

@@ -3,30 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Solicitud;
+use App\Models\Cliente;
+use App\Models\Dispositivo;
 use Illuminate\Http\Request;
 
 class SolicitudController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Método para listar todas las solicitudes
     public function index()
     {
-        $solicituds = Solicitud::all();
-        return view('solicituds.index', compact('solicituds'));
+        $solicitudes = Solicitud::with('cliente', 'dispositivo')->get();
+        return view('solicituds.index', compact('solicitudes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Método para mostrar el formulario de creación de una nueva solicitud
     public function create()
     {
-        return view('solicitudes.create');
+        $clientes = Cliente::all();
+        $dispositivos = Dispositivo::all();
+        return view('solicituds.create', compact('clientes', 'dispositivos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Método para almacenar una nueva solicitud
     public function store(Request $request)
     {
         $request->validate([
@@ -36,35 +34,20 @@ class SolicitudController extends Controller
             'descripcion_problema' => 'required|string|max:255',
         ]);
 
-        Solicitud::create([
-            'cliente_id' => $request->cliente_id,
-            'dispositivo_id' => $request->dispositivo_id,
-            'fecha_solicitud' => $request->fecha_solicitud,
-            'descripcion_problema' => $request->descripcion_problema,
-        ]);
+        Solicitud::create($request->all());
 
-        return redirect()->route('solicitudes.index')->with('success', 'Solicitud creada con éxito.');
+        return redirect()->route('solicituds.index')->with('success', 'Solicitud creada exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Solicitud $solicitud)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Método para mostrar el formulario de edición de una solicitud
     public function edit(Solicitud $solicitud)
     {
-        return view('solicitudes.edit', compact('solicitud'));
+        $clientes = Cliente::all();
+        $dispositivos = Dispositivo::all();
+        return view('solicituds.edit', compact('solicitud', 'clientes', 'dispositivos'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Método para actualizar una solicitud
     public function update(Request $request, Solicitud $solicitud)
     {
         $request->validate([
@@ -74,22 +57,15 @@ class SolicitudController extends Controller
             'descripcion_problema' => 'required|string|max:255',
         ]);
 
-        $solicitud->update([
-            'cliente_id' => $request->cliente_id,
-            'dispositivo_id' => $request->dispositivo_id,
-            'fecha_solicitud' => $request->fecha_solicitud,
-            'descripcion_problema' => $request->descripcion_problema,
-        ]);
+        $solicitud->update($request->all());
 
-        return redirect()->route('solicitudes.index')->with('success', 'Solicitud actualizada con éxito.');
+        return redirect()->route('solicituds.index')->with('success', 'Solicitud actualizada exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Método para eliminar una solicitud
     public function destroy(Solicitud $solicitud)
     {
         $solicitud->delete();
-        return redirect()->route('solicitudes.index')->with('success', 'Solicitud eliminada con éxito.');
+        return redirect()->route('solicituds.index')->with('success', 'Solicitud eliminada exitosamente.');
     }
 }

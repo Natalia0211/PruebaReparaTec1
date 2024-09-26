@@ -7,59 +7,59 @@ use Illuminate\Http\Request;
 
 class PagoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Mostrar la lista de pagos
     public function index()
     {
-        //
+        $pagos = Pago::all();
+        return view('pagos.index', compact('pagos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Mostrar el formulario para crear un nuevo pago
     public function create()
     {
-        //
+        return view('pagos.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Almacenar un nuevo pago
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'factura_id' => 'required|integer',
+            'fecha_pago' => 'required|date',
+            'metodo_pago' => 'required|string|max:255',
+            'monto_pago' => 'required|numeric|min:0',
+        ]);
+
+        Pago::create($request->all());
+
+        return redirect()->route('pagos.index')->with('success', 'Pago creado exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pago $pago)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Mostrar el formulario para editar un pago existente
     public function edit(Pago $pago)
     {
-        //
+        return view('pagos.edit', compact('pago'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Actualizar un pago existente
     public function update(Request $request, Pago $pago)
     {
-        //
+        $request->validate([
+            'factura_id' => 'required|integer',
+            'fecha_pago' => 'required|date',
+            'metodo_pago' => 'required|string|max:255',
+            'monto_pago' => 'required|numeric|min:0',
+        ]);
+
+        $pago->update($request->all());
+
+        return redirect()->route('pagos.index')->with('success', 'Pago actualizado exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Eliminar un pago existente
     public function destroy(Pago $pago)
     {
-        //
+        $pago->delete();
+        return redirect()->route('pagos.index')->with('success', 'Pago eliminado exitosamente.');
     }
 }
