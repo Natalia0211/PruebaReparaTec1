@@ -47,6 +47,23 @@
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <div>
+                    <label for="estado" class="block text-sm font-medium text-gray-700">Estado de la Reparación</label>
+                    <select id="estado" name="estado" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50" required>
+                        <option value="">Seleccione un estado</option>
+                        <option value="en_proceso" {{ old('estado') == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
+                        <option value="en_proceso" {{ old('estado') == 'en_progreso' ? 'selected' : '' }}>En Progreso</option>
+                        <option value="completada" {{ old('estado') == 'esperando_piezas' ? 'selected' : '' }}>Esperando Piezas</option>
+                        <option value="pendiente_repuesto" {{ old('estado') == 'prueba_de_funcionamiento' ? 'selected' : '' }}>Prueba de funcionamiento</option>
+                        <option value="pendiente_repuesto" {{ old('estado') == 'listo_para_recoger' ? 'selected' : '' }}>Listo para Recoger</option>
+                        <option value="pendiente_repuesto" {{ old('estado') == 'entregado' ? 'selected' : '' }}>Entregado</option>
+                        <option value="cancelada" {{ old('estado') == 'cancelada' ? 'selected' : '' }}>Cancelada</option>
+                    </select>
+                    @error('estado')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
 
             <div class="flex justify-end">
